@@ -69,7 +69,7 @@
       CI runner that doesn't have ASCOM Platform installed. Private=False
       keeps these out of the build output (and installer), matching the
       pre-existing assumption that end users provide these via their own
-      ASCOM Platform install, same as before this HintPath was added -- if
+      ASCOM Platform install, same as before this HintPath was added. If
       the HintPath target is missing (e.g. a real dev machine that hasn't
       run nuget restore), MSBuild falls back to its normal GAC/search-path
       resolution, so this doesn't change behavior for a normal dev machine
