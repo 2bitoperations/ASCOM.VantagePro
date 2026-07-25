@@ -26,7 +26,11 @@ jobs:
         shell: bash
         run: |
           git fetch --tags --force
-          latest=$(git tag -l 'v*' | grep -E '^v[0-9]+\.[0-9]+\.[0-9]+$' | sed 's/^v//' | sort -V | tail -1)
+          # `|| true`: with no tags yet (the first-ever run), grep matches nothing
+          # and exits 1; combined with this shell's default `-o pipefail`, that
+          # would otherwise abort the whole step even though "no tags yet" is
+          # the expected, handled case below.
+          latest=$(git tag -l 'v*' | grep -E '^v[0-9]+\.[0-9]+\.[0-9]+$' | sed 's/^v//' | sort -V | tail -1) || true
           if [ -z "$latest" ]; then
             next="1.3.0"
           else
